@@ -8,6 +8,7 @@
 #pragma warning(disable:4996)
 using namespace std;
 
+/*
 class BusStation
 {
 private:
@@ -32,3 +33,4 @@ class History
 class User
 {
 };
+*/
