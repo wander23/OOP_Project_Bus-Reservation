@@ -2,7 +2,7 @@
 
 int main() 
 {
-	BusStation B;
-	B.setAdmin();
+	cout << "Hello World ! ";
+
 	return 0;
 }
