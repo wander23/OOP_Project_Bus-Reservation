@@ -303,3 +303,25 @@ void History::print() {
 	cout << "Name: " << _name << endl;
 	cout << "Tel: " << _tel << endl;
 }
+
+void BusStation::setAdmin()
+{
+	Admin admin1;
+	Admin admin2;
+	Admin admin3;
+	Admin admin4;
+
+	admin1.adminUsername = "ngohuyanh";
+	admin1.password = "12345678910";
+	admin2.adminUsername = "phunganhkhoa";
+	admin2.password = "12345678910";
+	admin3.adminUsername = "ngodangkhoa";
+	admin3.password = "12345678910";
+	admin4.adminUsername = "huynhcaonhathieu";
+	admin4.password = "12345678910";
+
+	_ad.push_back(admin1);
+	_ad.push_back(admin2);
+	_ad.push_back(admin3);
+	_ad.push_back(admin4);
+}

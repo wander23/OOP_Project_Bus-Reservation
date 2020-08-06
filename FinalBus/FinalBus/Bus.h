@@ -125,3 +125,28 @@ class SuperVip : public Bus//Xe rieng tai xe rieng
     //void Rent();//Thue xe va tai xe
 
 };
+
+class BusStation
+{
+private:
+	vector<Bus> _bus;
+	vector<Admin> _ad;
+	vector<User> _user;
+public:
+	void setAdmin();
+};
+
+class Admin
+{
+protected:
+	string adminUsername;
+	string password;
+	vector<Bus> bus;
+	vector<string> userName;
+	vector<string> feedback;
+public:
+	Admin() {
+		adminUsername = "";
+		password = "";
+	}
+};
