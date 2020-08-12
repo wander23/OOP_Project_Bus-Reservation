@@ -9,7 +9,9 @@
 #pragma warning(disable:4996)
 using namespace std;
 
-const float priceGoods = 10000;
+const int priceGoods = 10000;
+static int P = 0;
+static int Q = 1;
 
 class Date
 {
@@ -44,7 +46,6 @@ protected:
     int _age;
     string _tel;
     string _email;
-    //History h;
 
 public:
     Person();
@@ -58,7 +59,7 @@ protected:
     int _number;
     vector<Ticket> _ticket;
     int _sumPrice;
-    //History _h;
+    string _feedback;
 public:
     User();
     void input();
@@ -69,11 +70,10 @@ class History {
 protected:
     string _name;
     string _tel;
-    int weightOfGoods;
-    int totalMoneySpent;
-    //vector<string> _feedback;
-    //vector<string> _typeBus;
-    //vector<string> _Admin;
+    int _goods;
+    int _payment;
+    string _feedback;
+    string _typebus;
 public:
     History();
     void setName(string name);
@@ -108,13 +108,16 @@ public:
 //Class cac loai xe dac biet 
 class Bed_Car :public Bus
 {
+private:
+    string _name = "Bed Car";
 public:
    /* void Luggage();*/
 };
 
 class VIP : public Bus
 {
-public:
+private:
+    string _name = "Vip Car";
 public:
     //void Luxury_Lounge();//Phong cho hang sang
     //void Install();
@@ -122,6 +125,34 @@ public:
 
 class SuperVip : public Bus//Xe rieng tai xe rieng
 {
+private:
+    string _name = "SuperVip Car";
+public:
     //void Rent();//Thue xe va tai xe
 
+};
+
+class Admin
+{
+protected:
+    string _account;
+    string _password;
+    vector<string> _feedback;
+    vector<History> _history;
+public:
+    void account(string str);
+    void password(string str);
+};
+
+class BusStation
+{
+private:
+    vector<Admin> _ad;
+    vector<Bus*> _bus;
+    vector<User> _user;
+public:
+    void setAdmin();
+    void addBed_car(Bed_Car a);
+    void addVip(VIP b);
+    void addVipCar(SuperVip c);
 };
