@@ -1,4 +1,10 @@
-#include"Bus.h"
+﻿#include"Bus.h"
+
+void vline(char ch ='-')
+{
+	for (int i = 80; i > 0; i--)
+		cout << ch;
+}
 
 //BUS
 Bus::Bus()
@@ -29,33 +35,33 @@ void Bus::SetSeats()
 
 void Bus::Install()// FOR ADMIN ONLY 
 {
-	cout << "Bus No: ";
+	cout << "Enter Bus No: ";
 	cin >> Number;
 	cin.ignore();
 
-	cout << "Enter driver name: ";
+	cout << "\nEnter driver name: ";
 	getline(cin, Driver);
 
-	cout << "Enter Departure time: ";
+	cout << "\nEnter Departure time: ";
 	getline(cin, Departure);
 
-	cout << "Going From: ";
+	cout << "\nGoing From: ";
 	getline(cin, From);
 
-	cout << "To: ";
+	cout << "\nTo: ";
 	getline(cin, To);
 
-	cout << "Enter Price: ";
+	cout << "\nEnter Price: ";
 	cin >> Price;
 	cin.ignore();
 
-	cout << "Enter Seat Rows and Cols: ";
+	cout << "\nEnter Seat Rows and Cols: ";
 	cin >> Row >> Col;
 	cin.ignore();
 	SetSeats();
 	seat_max = Row * Col;
 
-	cout << "Enter Discount Voucher code: ";
+	cout << "\nEnter Discount Voucher code: ";
 	getline(cin, Voucher);
 
 
@@ -89,16 +95,14 @@ bool Bus::CheckEmpty(int Seat)
 {
 	int Num = 1;
 	for (int i = 0; i < Row; i++)
-	{
 		for (int j = 0; j < Col; j++)
 		{
 			if (Num == Seat)
-				if (Seats[i][j] == "Empty")
+				if (strcmp(Seats[i][j].c_str(),"Empty")==0)
 					return true;
 				else return false;
 			Num++;
 		}
-	}
 	return false;
 }
 
@@ -106,14 +110,12 @@ void Bus::NameRev(string Name, int Seat)
 {
 	int Num = 1;
 	for (int i = 0; i < Row; i++)
-	{
 		for (int j = 0; j < Col; j++)
 		{
 			if (Num == Seat)
 				Seats[i][j] = Name;
 			Num++;
 		}
-	}
 }
 
 void Bus::Reverse()// For Customer
@@ -220,35 +222,30 @@ Person::Person()
 {
 	_name = _sex = _email = _tel = "";
 	_age = 0;
-
 }
 
 void Person::input()
 {
-	cin.ignore();
-	cout << "Enter name: ";
+	cout << "\nEnter name: ";
 	getline(cin, _name);
 
-	cout << "Enter gender: ";
+	cout << "\nEnter gender: ";
 	getline(cin,_sex);
 
-	cout << "Enter age: "; 
+	cout << "\nEnter age: "; 
 	cin >> _age;
 	cin.ignore();
 
-	cout << "Enter tel: "; 
+	cout << "\nEnter tel: "; 
 	getline(cin, _tel);
 
-	cout << "Enter email: ";
+	cout << "\nEnter email: ";
 	getline(cin, _email);
-
-	//h.setName(_name);
-	//h.setTel(_tel);
 }
 
 void Person::output()
 {
-	cout << "Name: " << _name << endl;
+	cout << "\nName: " << _name << endl;
 	cout << "Gender: " << _sex << endl;
 	cout << "Age: " << _age << endl;
 	cout << "Telephone: " << _tel << endl;
@@ -289,6 +286,7 @@ void User::output()
 	cout << endl;
 }
 
+//History
 History::History() {
 	_name = _tel = " ";
 }
@@ -299,11 +297,16 @@ void History::setTel(string tel) {
 	_tel = tel;
 }
 void History::print() {
-	cout << "#1" << endl;
+	cout << "\n#"<<Q << endl;
 	cout << "Name: " << _name << endl;
 	cout << "Tel: " << _tel << endl;
+	cout << "Goods: " << _goods << endl;
+	cout << "Payment: " << _payment << endl;
+	cout << "Feedback: " << _feedback << endl;
+	cout << "Typenbus: " << _typebus << endl;
 }
 
+//BusStation
 void BusStation::setAdmin()
 {
 	Admin admin1;
@@ -311,17 +314,63 @@ void BusStation::setAdmin()
 	Admin admin3;
 	Admin admin4;
 
-	admin1.adminUsername = "ngohuyanh";
-	admin1.password = "12345678910";
-	admin2.adminUsername = "phunganhkhoa";
-	admin2.password = "12345678910";
-	admin3.adminUsername = "ngodangkhoa";
-	admin3.password = "12345678910";
-	admin4.adminUsername = "huynhcaonhathieu";
-	admin4.password = "12345678910";
+	admin1.account("phunganhkhoa");
+	admin1.password("19127449");
+	admin2.account("ngodangkhoa");
+	admin2.password("19127444");
+	admin3.account("huyngcaonhathieu");
+	admin3.password("19127399");
+	admin4.account("ngohuyanh");
+	admin4.password("19127095");
 
 	_ad.push_back(admin1);
 	_ad.push_back(admin2);
 	_ad.push_back(admin3);
 	_ad.push_back(admin4);
+}
+//Admin
+void Admin::account(string str)
+{
+	_account = str;
+}
+
+void Admin::password(string str)
+{
+	_password = str;
+}
+
+void BusStation::addBed_car(Bed_Car a)
+{
+	_bus.push_back(&a);
+}
+
+void BusStation::addVip(VIP b)
+{
+	_bus.push_back(&b);
+}
+
+void BusStation::addVipCar(SuperVip c)
+{
+	_bus.push_back(&c);
+}
+
+string BusStation :: chooseBus() {				//chọn loại xe
+	cout << "Enter the type of Bus you want to enjoy(Bed Car, Vip Car, SuperVip Car): ";
+	string type;
+	getline(cin, type);
+	return type;
+}
+
+void BusStation :: setVoucher() {				//create Voucher
+	Bus begBus;
+	Bus Vip;
+	Bus SuperVip;
+
+	begBus.Vouc("begbusVoucher");
+	Vip.Vouc("vipVoucher");
+	SuperVip.Vouc("supervipVoucher");
+
+	_bus.push_back(&begBus);
+	_bus.push_back(&Vip);
+	_bus.push_back(&SuperVip);
 }
