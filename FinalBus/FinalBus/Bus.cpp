@@ -1,12 +1,14 @@
 ﻿#include"Bus.h"
 
-void vline(char ch ='-')
+void vline(char ch = '-')
 {
 	for (int i = 80; i > 0; i--)
 		cout << ch;
 }
 
 //BUS
+
+
 Bus::Bus()
 {
 	Number = 0;
@@ -14,12 +16,55 @@ Bus::Bus()
 	Departure = " ";
 	From = " ";
 	To = " ";
-	Price = 0;
+	Price = 200000;
 	Col = 5;
 	Row = 8;
 	seat_max = Row * Col;
 	SetSeats();
 }
+
+Bed_Car::Bed_Car(int num)
+{
+	Number = num;
+	Driver = " ";
+	Departure = " ";
+	From = " ";
+	To = " ";
+	Price = 400000;
+	Col = 3;
+	Row = 6;
+	seat_max = Row * Col;
+	SetSeats();
+}
+
+VIP::VIP(int num)
+{
+	Number = num;
+	Driver = " ";
+	Departure = " ";
+	From = " ";
+	To = " ";
+	Price = 3000000;
+	Col = 2;
+	Row = 5;
+	seat_max = Row * Col;
+	SetSeats();
+}
+
+SuperVip::SuperVip(int num)
+{
+	Number = num;
+	Driver = " ";
+	Departure = " ";
+	From = " ";
+	To = " ";
+	Price = 10000000;
+	Col = 2;
+	Row = 1;
+	seat_max = Row * Col;
+	SetSeats();
+}
+
 void Bus::SetSeats()
 {
 	Seats.resize(Row);
@@ -67,6 +112,29 @@ void Bus::Install()// FOR ADMIN ONLY
 
 }
 
+vector<string> split(string haystack, string separator = " ")
+{
+	vector<string> a;
+	size_t Startpos = 0;
+	while (true)
+	{
+		size_t Foundpos = haystack.find(separator, Startpos);
+		if (Foundpos != string::npos)
+		{
+			string Token = haystack.substr(Startpos, Foundpos - Startpos);
+			Startpos = Foundpos + separator.length();
+			a.push_back(Token);
+		}
+		else
+		{
+			a.push_back(haystack.substr(Startpos, haystack.length() - Startpos));
+			break;
+		}
+
+	}
+	return a;
+}
+
 void Bus::ShowSeat()
 {
 	int No = 1;
@@ -84,11 +152,12 @@ void Bus::ShowSeat()
 void Bus::Show()// Show for Customer
 {
 	cout << "Bus No: " << Number << endl;
+	ShowName();
 	cout << "Driver: " << Driver << endl;
 	cout << "Going From " << From << " To " << To << endl;
 	cout << "Departure time: " << Departure << endl;
 	cout << "Seat Available: " << seat_max << endl;
-	cout << "Price per ticket: " << Price << endl;
+	ShowPrice();
 }
 
 bool Bus::CheckEmpty(int Seat)
@@ -98,7 +167,7 @@ bool Bus::CheckEmpty(int Seat)
 		for (int j = 0; j < Col; j++)
 		{
 			if (Num == Seat)
-				if (strcmp(Seats[i][j].c_str(),"Empty")==0)
+				if (strcmp(Seats[i][j].c_str(), "Empty") == 0)
 					return true;
 				else return false;
 			Num++;
@@ -120,25 +189,31 @@ void Bus::NameRev(string Name, int Seat)
 
 void Bus::Reverse()// For Customer
 {
-	int Seat_no , num_of_people;
-	string Name, customer_Voucher;
-	cout << "How many people: ";
-	cin >> num_of_people;
-	cin.ignore();
+	int Seat_no, num_of_people, Weight;
+	int bill;
+	string Name, customer_Voucher, haystack;
+	vector<string>s_seats;
+
+	cout << "Enter name: ";
+	getline(cin, Name);
+
+	cout << "What seats you want to Reverse: ";
+	getline(cin, haystack);
+
+	s_seats = split(haystack);
+	num_of_people = s_seats.size();
+
 	for (int i = 0; i < num_of_people; i++)
 	{
-		cout << "Enter name: ";
-		getline(cin, Name);
+		Seat_no = stoi(s_seats[i]);
 	top:
-		cout << "Seat you want to Reverse: ";
-		cin >> Seat_no;
-		cin.ignore();
-
 		if (Seat_no > seat_max)
 		{
-			cout << "There are only " << seat_max << " in this bus" << endl;
-
-			system("pause");
+			cout << "Seat " << Seat_no << " is out of max seats. Please try again. " << endl;
+			cout << "Seat: ";
+			cin >> Seat_no;
+			cin.ignore();
+			cout << endl;
 			goto top;
 		}
 
@@ -149,18 +224,30 @@ void Bus::Reverse()// For Customer
 		}
 		else
 		{
-			cout << "This seat is already reverse." << endl;
+			cout << "Seat " << Seat_no << " is already reverse. Please try again" << endl;
+			cout << "Seat: ";
+			cin >> Seat_no;
+			cin.ignore();
 			goto top;
 		}
-	}
 
+	}
+	cout << "Enter Weight of your luggages: ";
+	cin >> Weight;
+	cin.ignore();
+	bill = (Price * num_of_people) + (Weight * priceGoods);
 	cout << "Enter Voucher(type no if you dont have): ";
 	getline(cin, customer_Voucher);
 	if (customer_Voucher == Voucher)
-		cout << "You have 50% discount" << endl << "Bill:	" << (Price * num_of_people) * 50/100 << endl;
+	{
+		bill /= 2;
+		cout << "You have 50% discount" << endl << "Bill:	" << bill << endl;
+	}
 	else
-		cout << "Bill: " << Price * num_of_people << endl;
+		cout << "Bill: " << bill << endl;
 }
+
+
 
 // Date
 Date::Date()
@@ -192,16 +279,16 @@ void Ticket::input()
 {
 	cin.ignore();
 
-	cout << "Enter name of trip: "; 
+	cout << "Enter name of trip: ";
 	getline(cin, _nameOfTrip);
 
 	cout << "Enter Date: " << endl;
 	_date.input();
 
-	cout << "Enter price: "; 
+	cout << "Enter price: ";
 	cin >> _price;
 
-	cout << "Enter goods's weight: "; 
+	cout << "Enter goods's weight: ";
 	cin >> _goods;
 }
 void Ticket::output()
@@ -230,13 +317,13 @@ void Person::input()
 	getline(cin, _name);
 
 	cout << "\nEnter gender: ";
-	getline(cin,_sex);
+	getline(cin, _sex);
 
-	cout << "\nEnter age: "; 
+	cout << "\nEnter age: ";
 	cin >> _age;
 	cin.ignore();
 
-	cout << "\nEnter tel: "; 
+	cout << "\nEnter tel: ";
 	getline(cin, _tel);
 
 	cout << "\nEnter email: ";
@@ -262,7 +349,7 @@ User::User()
 void User::input()
 {
 	Person::input();
-	cout << "Enter the number of ticket that users bought: "; 
+	cout << "Enter the number of ticket that users bought: ";
 	cin >> _number;
 
 	for (int i = 0; i < this->_number; ++i)
@@ -297,7 +384,7 @@ void History::setTel(string tel) {
 	_tel = tel;
 }
 void History::print() {
-	cout << "\n#"<<Q << endl;
+	cout << "\n#" << Q << endl;
 	cout << "Name: " << _name << endl;
 	cout << "Tel: " << _tel << endl;
 	cout << "Goods: " << _goods << endl;
@@ -328,6 +415,157 @@ void BusStation::setAdmin()
 	_ad.push_back(admin3);
 	_ad.push_back(admin4);
 }
+
+void BusStation::Install()
+{
+	int choice;
+
+	while (true)
+	{
+		cout << "Chon loai xe ban muon Tao: " << endl;
+		cout << "1. Xe khach ngoi " << endl;
+		cout << "2. Xe giuong nam " << endl;
+		cout << "3. Xe Vip " << endl;
+		cout << "4. Xe Rieng, Tai xe rieng" << endl;
+		cout << "5. Exit" << endl;
+
+		cout << "Lua chon cua ban la: ";
+		cin >> choice;
+		cin.ignore();
+		if (choice == 5)
+		{
+			system("pause");
+			system("cls");
+			break;
+		}
+		system("cls");
+		switch (choice)
+		{
+		case 1:
+		{
+			int Num;
+			cout << "ADMIN SETUP" << endl;
+			cout << "Enter number bus you want to Install: ";
+			cin >> Num;
+			cin.ignore();
+			for (int i = 0; i < Num; i++)
+			{
+				Bus a;
+				//a.Install();
+				_bus.push_back(new Bus(a));
+				//system("cls");
+			}
+			cout << endl;
+			system("pause");
+			system("cls");
+
+			break;
+		}
+		case 2:
+		{
+			int Num;
+			cout << "ADMIN SETUP" << endl;
+			cout << "Enter number bus you want to Install: ";
+			cin >> Num;
+			cin.ignore();
+			for (int i = 0; i < Num; i++)
+			{
+				Bed_Car b(i + 1);
+				//b.Install();
+				addBed_car(b);
+				//system("cls");
+			}
+
+			cout << endl;
+			system("pause");
+			system("cls");
+
+			break;
+		}
+		case 3:
+		{
+			int Num;
+			cout << "ADMIN SETUP" << endl;
+			cout << "Enter number bus you want to Install: ";
+			cin >> Num;
+			cin.ignore();
+			for (int i = 0; i < Num; i++)
+			{
+				VIP c(i + 1);
+				//c.Install();
+				addVip(c);
+				//system("cls");
+			}
+
+			cout << endl;
+			system("pause");
+			system("cls");
+
+			break;
+		}
+		case 4:
+		{
+			int Num;
+			cout << "ADMIN SETUP" << endl;
+			cout << "Enter number bus you want to Install: ";
+			cin >> Num;
+			cin.ignore();
+			for (int i = 0; i < Num; i++)
+			{
+				SuperVip d(i + 1);
+				//b.Install();
+				addVipCar(d);
+				//system("cls");
+			}
+
+			cout << endl;
+			system("pause");
+			system("cls");
+
+			break;
+		}
+		}
+	}
+}
+
+void BusStation::Rev()
+{
+	int Bus_no;
+	cout << "CUSTOMER: " << endl;
+	cout << "Buses availabile: " << endl;
+top1:
+	for (int i = 0; i < _bus.size(); i++)
+	{
+		_bus[i]->Show();
+		cout << endl;
+	}
+	cout << endl;
+	cout << "Enter Bus No: ";
+	cin >> Bus_no;
+	cin.ignore();
+	for (int i = 0; i < _bus.size(); i++)
+	{
+		if (_bus[i]->Number == Bus_no)
+		{
+			system("cls");
+			_bus[i]->ShowSeat();
+			_bus[i]->Reverse();
+			system("pause");
+			system("cls");
+			_bus[i]->ShowSeat();
+			system("pause");
+			break;
+		}
+		else
+		{
+			continue;
+		}
+	}
+
+}
+
+
+
 //Admin
 void Admin::account(string str)
 {
@@ -341,36 +579,29 @@ void Admin::password(string str)
 
 void BusStation::addBed_car(Bed_Car a)
 {
-	_bus.push_back(&a);
+	_bus.push_back(new Bed_Car(a));
 }
 
 void BusStation::addVip(VIP b)
 {
-	_bus.push_back(&b);
+	_bus.push_back(new VIP(b));
 }
 
 void BusStation::addVipCar(SuperVip c)
 {
-	_bus.push_back(&c);
+	_bus.push_back(new SuperVip(c));
 }
 
-string BusStation :: chooseBus() {				//chọn loại xe
-	cout << "Enter the type of Bus you want to enjoy(Bed Car, Vip Car, SuperVip Car): ";
-	string type;
-	getline(cin, type);
-	return type;
-}
-
-void BusStation :: setVoucher() {				//create Voucher
-	Bus begBus;
-	Bus Vip;
-	Bus SuperVip;
-
-	begBus.Vouc("begbusVoucher");
-	Vip.Vouc("vipVoucher");
-	SuperVip.Vouc("supervipVoucher");
-
-	_bus.push_back(&begBus);
-	_bus.push_back(&Vip);
-	_bus.push_back(&SuperVip);
+void BusStation::saveInforIntoHistory() {
+	string name, tel, fb;
+	History his;
+	cout << "Fill your name: ";
+	getline(cin, name);
+	his.setName(name);
+	cout << "Fill your telephone: ";
+	getline(cin, tel);
+	his.setTel(tel);
+	cout << "Give feedback: ";
+	getline(cin, fb);
+	his.setFb(fb);
 }

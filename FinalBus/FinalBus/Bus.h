@@ -78,12 +78,14 @@ public:
     History();
     void setName(string name);
     void setTel(string tel);
+    void setFb(string fb);
     void print();
 };
 
 class Bus
 {
-private:
+protected:
+    string _name = "Regular Bus";
     int Price;
     string Departure;
     string From;
@@ -99,14 +101,18 @@ public:
     void Install();
     void Reverse();
     void Show();
+    virtual void ShowName()
+    {
+        cout << "Type bus: " << _name << endl;
+    }
+    virtual void ShowPrice()
+    {
+        cout << "Price per ticket: 200,000 VND" << endl;
+    }
     void ShowSeat();
     bool CheckEmpty(int No);
     void NameRev(string name, int Seat);
     Bus();
-    string Vouc(string vouc) {
-        Voucher = vouc;
-        return Voucher;
-    }
 };
 
 //Class cac loai xe dac biet 
@@ -114,27 +120,58 @@ class Bed_Car :public Bus
 {
 private:
     string _name = "Bed Car";
+    string Voucher;
+
 public:
-   /* void Luggage();*/
+    void ShowName()
+    {
+        cout << "Type bus: " << _name << endl;
+    }
+    void ShowPrice()
+    {
+        cout << "Price per ticket: 400,000 VND" << endl;
+    }
+
+    Bed_Car(int num);
+
 };
 
 class VIP : public Bus
 {
 private:
     string _name = "Vip Car";
+    string Voucher;
 public:
-    //void Luxury_Lounge();//Phong cho hang sang
-    //void Install();
+    void ShowName()
+    {
+        cout << "Type bus: " << _name << endl;
+    }
+    void ShowPrice()
+    {
+        cout << "Price per ticket: 3,000,000 VND" << endl;
+    }
+    VIP(int num);
 };
 
 class SuperVip : public Bus//Xe rieng tai xe rieng
 {
 private:
     string _name = "SuperVip Car";
+    string Voucher = "supervipVoucher";
 public:
-    //void Rent();//Thue xe va tai xe
-
+    void ShowName()
+    {
+        cout << "Type bus: " << _name << endl;
+    }
+    void ShowPrice()
+    {
+        cout << "Price per ticket: 10,000,000 VND" << endl;
+    }
+    SuperVip(int num);
 };
+
+void OptionInstall();
+void OptionRev();
 
 class Admin
 {
@@ -159,7 +196,7 @@ public:
     void addBed_car(Bed_Car a);
     void addVip(VIP b);
     void addVipCar(SuperVip c);
-    string chooseBus();
-    void setVoucher();
-
+    void Install();
+    void Rev();
+    void saveInforIntoHistory();
 };
