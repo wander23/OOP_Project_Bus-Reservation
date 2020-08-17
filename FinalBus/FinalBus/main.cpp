@@ -1,11 +1,15 @@
 #include"Bus.h"
+
 int main()
 {
 	BusStation a;
+//Create Admin Account && Log In 
+	//a.setAdmin();
+	//a.logInForAdmin();
+
 	a.Install();
 	a.Rev();
-	//SuperVip a(4);
-	//a.Show();
-	//system("pause");
+	a.saveInfoIntoHistory();
+	system("pause");
 	return 0;
 }

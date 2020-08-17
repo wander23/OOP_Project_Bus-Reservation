@@ -1,8 +1,2 @@
-﻿  Bus.cpp
-C:\Users\PC\OneDrive\Documents\GitHub\OOP_Project_Bus-Reservation\OOP_Project_Bus-Reservation\FinalBus\FinalBus\Bus.cpp(537,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\PC\OneDrive\Documents\GitHub\OOP_Project_Bus-Reservation\OOP_Project_Bus-Reservation\FinalBus\FinalBus\Bus.cpp(546,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\PC\OneDrive\Documents\GitHub\OOP_Project_Bus-Reservation\OOP_Project_Bus-Reservation\FinalBus\FinalBus\Bus.cpp(536,5): warning C4102: 'top1': unreferenced label
-  main.cpp
-  Generating Code...
-Bus.obj : error LNK2019: unresolved external symbol "public: void __thiscall History::setFb(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?setFb@History@@QAEXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) referenced in function "public: void __thiscall BusStation::saveInforIntoHistory(void)" (?saveInforIntoHistory@BusStation@@QAEXXZ)
-C:\Users\PC\OneDrive\Documents\GitHub\OOP_Project_Bus-Reservation\OOP_Project_Bus-Reservation\FinalBus\Debug\FinalBus.exe : fatal error LNK1120: 1 unresolved externals
+﻿  main.cpp
+  FinalBus.vcxproj -> D:\Tristan\QST\First Year\Third Semester\OOP\Labs\Project\OOP_Project_Bus-Reservation\FinalBus\Debug\FinalBus.exe

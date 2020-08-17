@@ -1,10 +1,9 @@
-#pragma once
 #include <conio.h>
 #include <cstdio>
 #include <iostream>
 #include <string>
 #include <cstdlib>
-#include<vector>
+#include <vector>
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
 using namespace std;
@@ -77,8 +76,8 @@ protected:
 public:
     History();
     void setName(string name);
-    void setTel(string tel);
-    void setFb(string fb);
+    void setTelephone(string tel);
+    void setFeedback(string fb);
     void print();
 };
 
@@ -175,14 +174,16 @@ void OptionRev();
 
 class Admin
 {
-protected:
-    string _account;
+private:
+    string _username;
     string _password;
     vector<string> _feedback;
     vector<History> _history;
 public:
-    void account(string str);
-    void password(string str);
+    void setUsername(string str);
+    void setPassword(string str);
+    string getUsername();
+    string getPassword();
 };
 
 class BusStation
@@ -192,11 +193,13 @@ private:
     vector<Bus*> _bus;
     vector<User> _user;
 public:
+    void printOutAccount(); // Check If Username is Change
     void setAdmin();
+    bool logInForAdmin();
     void addBed_car(Bed_Car a);
     void addVip(VIP b);
     void addVipCar(SuperVip c);
     void Install();
     void Rev();
-    void saveInforIntoHistory();
+    void saveInfoIntoHistory();
 };

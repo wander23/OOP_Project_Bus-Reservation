@@ -8,7 +8,6 @@ void vline(char ch = '-')
 
 //BUS
 
-
 Bus::Bus()
 {
 	Number = 0;
@@ -275,6 +274,7 @@ Ticket::Ticket()
 	_price = 0;
 	_goods = 0;
 }
+
 void Ticket::input()
 {
 	cin.ignore();
@@ -291,6 +291,7 @@ void Ticket::input()
 	cout << "Enter goods's weight: ";
 	cin >> _goods;
 }
+
 void Ticket::output()
 {
 	cout << "Name of trip: " << _nameOfTrip << endl;
@@ -377,12 +378,19 @@ void User::output()
 History::History() {
 	_name = _tel = " ";
 }
+
 void History::setName(string name) {
 	_name = name;
 }
-void History::setTel(string tel) {
-	_tel = tel;
+
+void History::setTelephone(string telephone) {
+	_tel = telephone;
 }
+
+void History::setFeedback(string feedBack){
+
+}
+
 void History::print() {
 	cout << "\n#" << Q << endl;
 	cout << "Name: " << _name << endl;
@@ -394,6 +402,13 @@ void History::print() {
 }
 
 //BusStation
+void BusStation::printOutAccount()
+{
+	for (int i = 0; i < _ad.size(); i++) {
+		cout << _ad[i].getUsername() << _ad[i].getPassword() << "\n";
+	}
+}
+
 void BusStation::setAdmin()
 {
 	Admin admin1;
@@ -401,19 +416,59 @@ void BusStation::setAdmin()
 	Admin admin3;
 	Admin admin4;
 
-	admin1.account("phunganhkhoa");
-	admin1.password("19127449");
-	admin2.account("ngodangkhoa");
-	admin2.password("19127444");
-	admin3.account("huyngcaonhathieu");
-	admin3.password("19127399");
-	admin4.account("ngohuyanh");
-	admin4.password("19127095");
+	admin1.setUsername("phunganhkhoa");
+	admin1.setPassword("19127449");
+	admin2.setUsername("ngodangkhoa");
+	admin2.setPassword("19127444");
+	admin3.setUsername("huynhcaonhathieu");
+	admin3.setPassword("19127399");
+	admin4.setUsername("ngohuyanh");
+	admin4.setPassword("19127095");
 
 	_ad.push_back(admin1);
 	_ad.push_back(admin2);
 	_ad.push_back(admin3);
 	_ad.push_back(admin4);
+}
+
+bool BusStation::logInForAdmin()
+{
+	int j = 0;
+	char key;
+	bool validateAdmin = false;
+	int numberOfWrongInput = 0;
+	string username = "";
+	string password = "";
+
+	while (!validateAdmin) {
+		cout << "Username: ";
+		getline(cin, username);
+		fflush(stdin);
+		cout << "Password: ";
+		getline(cin, password);
+		for (int i = 0; i < _ad.size(); i++) {
+			if (_ad[i].getUsername() == username && _ad[i].getPassword() == password) {
+				return true;
+			}
+		}
+
+		if (!validateAdmin) {
+			cout << "Wrong Username or Password ! Please press Enter to try again ! " << "\n";
+			numberOfWrongInput++;
+			system("pause");
+		}
+
+		if (numberOfWrongInput == 3) {
+			system("cls");
+			cout << "You have entered wrong Username or Password 3 times ! Please press Enter to exit program ! " << "\n";
+			system("pause");
+			return false;
+		}
+
+		username.clear();
+		password.clear();
+		system("cls");
+	}
 }
 
 void BusStation::Install()
@@ -564,17 +619,25 @@ top1:
 
 }
 
-
-
 //Admin
-void Admin::account(string str)
+void Admin::setUsername(string str)
 {
-	_account = str;
+	_username = str;
 }
 
-void Admin::password(string str)
+void Admin::setPassword(string str)
 {
 	_password = str;
+}
+
+string Admin::getUsername()
+{
+	return _username;
+}
+
+string Admin::getPassword()
+{
+	return _password;
 }
 
 void BusStation::addBed_car(Bed_Car a)
@@ -592,16 +655,24 @@ void BusStation::addVipCar(SuperVip c)
 	_bus.push_back(new SuperVip(c));
 }
 
-void BusStation::saveInforIntoHistory() {
-	string name, tel, fb;
-	History his;
+void BusStation::saveInfoIntoHistory() {
+	string name, telephone, feedback;
+	History getHistory;
 	cout << "Fill your name: ";
 	getline(cin, name);
-	his.setName(name);
+	getHistory.setName(name);
 	cout << "Fill your telephone: ";
-	getline(cin, tel);
-	his.setTel(tel);
+	getline(cin, telephone);
+	getHistory.setTelephone(telephone);
 	cout << "Give feedback: ";
-	getline(cin, fb);
-	his.setFb(fb);
+	getline(cin, feedback);
+	getHistory.setFeedback(feedback);
+}
+
+void OptionInstall()
+{
+}
+
+void OptionRev()
+{
 }
