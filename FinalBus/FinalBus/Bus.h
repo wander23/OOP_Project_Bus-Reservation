@@ -76,8 +76,11 @@ protected:
 public:
     History();
     void setName(string name);
-    void setTelephone(string tel);
-    void setFeedback(string fb);
+    void setTelephone(string telephone);
+    void setFeedback(string feedback);
+    string getFeedback();
+    int getPayment();
+    int getGoods();
     void print();
 };
 
@@ -98,7 +101,7 @@ public:
     int Number;
     void SetSeats();
     void Install();
-    void Reverse();
+    void Reserve();
     void Show();
     virtual void ShowName()
     {
@@ -184,22 +187,28 @@ public:
     void setPassword(string str);
     string getUsername();
     string getPassword();
+    void addHistory(History history);
+    vector<History> getHistory();
 };
 
 class BusStation
 {
 private:
+    int serial;
     vector<Admin> _ad;
     vector<Bus*> _bus;
     vector<User> _user;
 public:
-    void printOutAccount(); // Check If Username is Change
+    void printOutAccount(); // Print Account 
     void setAdmin();
-    bool logInForAdmin();
+    bool logInForAdmin(int &serial);
     void addBed_car(Bed_Car a);
     void addVip(VIP b);
     void addVipCar(SuperVip c);
     void Install();
     void Rev();
-    void saveInfoIntoHistory();
+    void saveInfoIntoHistory(int serial);
+    void readFeedback(int serial);
+    int showMoney(int serial);
+    int showGoods(int serial);
 };
