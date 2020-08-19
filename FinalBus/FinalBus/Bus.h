@@ -1,4 +1,4 @@
-#include <conio.h>
+﻿#include <conio.h>
 #include <cstdio>
 #include <iostream>
 #include <string>
@@ -180,7 +180,6 @@ class Admin
 private:
     string _username;
     string _password;
-    vector<string> _feedback;
     vector<History> _history;
 public:
     void setUsername(string str);
@@ -194,7 +193,7 @@ public:
 class BusStation
 {
 private:
-    int serial;
+    int serial; // Serial Admin -> Xem Admin nào phụ trách những xe nào, những hành khách nào
     vector<Admin> _ad;
     vector<Bus*> _bus;
     vector<User> _user;

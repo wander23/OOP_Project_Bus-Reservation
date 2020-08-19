@@ -681,18 +681,18 @@ void BusStation::addVipCar(SuperVip c)
 
 void BusStation::saveInfoIntoHistory(int serial) {
 	string name, telephone, feedback;
-	History getHistory;
+	History history;
 	cout << "Fill your name: ";
 	getline(cin, name);
-	getHistory.setName(name);
+	history.setName(name);
 	cout << "Fill your telephone: ";
 	getline(cin, telephone);
-	getHistory.setTelephone(telephone);
+	history.setTelephone(telephone);
 	cout << "Give feedback: ";
 	getline(cin, feedback);
-	getHistory.setFeedback(feedback);
+	history.setFeedback(feedback);
 
-	_ad[serial].addHistory(getHistory);
+	_ad[serial].addHistory(history);
 }
 
 void BusStation::readFeedback(int serial)
@@ -705,6 +705,7 @@ void BusStation::readFeedback(int serial)
 		cout << temp[i].getFeedback();
 	}
 
+	temp.clear();
 	return;
 }
 
@@ -719,6 +720,7 @@ int BusStation::showMoney(int serial)
 		totalOfMoney += temp[i].getPayment();
 	}
 
+	temp.clear();
 	return totalOfMoney;
 }
 
@@ -733,13 +735,16 @@ int BusStation::showGoods(int serial)
 		totalOfGoods += temp[i].getGoods();
 	}
 
+	temp.clear();
 	return totalOfGoods;
 }
 
 void OptionInstall()
 {
+
 }
 
 void OptionRev()
 {
+
 }
