@@ -7,9 +7,9 @@ int main()
 	//a.setAdmin();
 	//a.logInForAdmin();
 
-	a.Install();
-	a.Rev();
-	a.saveInfoIntoHistory();
+	//a.Install();
+	//a.Rev();
+	//a.saveInfoIntoHistory();
 	system("pause");
 	return 0;
 }

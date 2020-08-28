@@ -23,6 +23,7 @@ public:
     void output();
 };
 
+
 class Ticket
 {
 protected:
@@ -38,6 +39,7 @@ public:
     int getPrice();
 };
 
+
 class Person
 {
 protected:
@@ -52,6 +54,7 @@ public:
     void output();
 };
 
+
 class User : public Person
 {
 protected:
@@ -64,6 +67,7 @@ public:
     void input();
     void output();
 };
+
 
 class History {
 protected:
@@ -83,6 +87,7 @@ public:
     int getGoods();
     void print();
 };
+
 
 class Bus
 {
@@ -117,6 +122,7 @@ public:
     Bus();
 };
 
+
 //Class cac loai xe dac biet 
 class Bed_Car :public Bus
 {
@@ -138,6 +144,7 @@ public:
 
 };
 
+
 class VIP : public Bus
 {
 private:
@@ -154,6 +161,7 @@ public:
     }
     VIP(int num);
 };
+
 
 class SuperVip : public Bus//Xe rieng tai xe rieng
 {
@@ -172,8 +180,6 @@ public:
     SuperVip(int num);
 };
 
-void OptionInstall();
-void OptionRev();
 
 class Admin
 {
@@ -186,9 +192,10 @@ public:
     void setPassword(string str);
     string getUsername();
     string getPassword();
-    void addHistory(History history);
+    void addHistory(const History&);
     vector<History> getHistory();
 };
+
 
 class BusStation
 {
@@ -201,9 +208,11 @@ public:
     void printOutAccount(); // Print Account 
     void setAdmin();
     bool logInForAdmin(int &serial);
+
     void addBed_car(Bed_Car a);
     void addVip(VIP b);
     void addVipCar(SuperVip c);
+
     void Install();
     void Rev();
     void saveInfoIntoHistory(int serial);
@@ -211,3 +220,8 @@ public:
     int showMoney(int serial);
     int showGoods(int serial);
 };
+
+
+
+//void OptionInstall();
+//void OptionRev();

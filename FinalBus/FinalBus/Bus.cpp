@@ -246,7 +246,9 @@ void Bus::Reserve()// For Customer
 		cout << "Bill: " << bill << endl;
 }
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Date
 Date::Date()
@@ -266,6 +268,10 @@ void Date::output()
 {
 	cout << "Day/Month/Year: " << _day << "/" << _month << "/" << _year << endl;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Ticket
 Ticket::Ticket()
@@ -340,6 +346,10 @@ void Person::output()
 	cout << "Email: " << _email << endl;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //User
 User::User()
 {
@@ -353,7 +363,7 @@ void User::input()
 	cout << "Enter the number of ticket that users bought: ";
 	cin >> _number;
 
-	for (int i = 0; i < this->_number; ++i)
+	for (int i = 0; i < _number; ++i)
 	{
 		cout << "\t#" << i + 1 << endl;
 		_ticket[i].input();
@@ -374,37 +384,48 @@ void User::output()
 	cout << endl;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //History
 History::History() {
 	_name = _tel = " ";
 }
 
+
 void History::setName(string name) {
 	_name = name;
 }
+
 
 void History::setTelephone(string telephone) {
 	_tel = telephone;
 }
 
+
 void History::setFeedback(string feedBack){
 	_feedback = feedBack;
 }
+
 
 string History::getFeedback()
 {
 	return _feedback;
 }
 
+
 int History::getPayment()
 {
 	return _payment;
 }
 
+
 int History::getGoods()
 {
 	return _goods;
 }
+
 
 void History::print() {
 	cout << "\n#" << Q << endl;
@@ -416,6 +437,10 @@ void History::print() {
 	cout << "Typenbus: " << _typebus << endl;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //BusStation
 void BusStation::printOutAccount()
 {
@@ -423,6 +448,7 @@ void BusStation::printOutAccount()
 		cout << _ad[i].getUsername() << _ad[i].getPassword() << "\n";
 	}
 }
+
 
 void BusStation::setAdmin()
 {
@@ -444,7 +470,8 @@ void BusStation::setAdmin()
 	_ad.push_back(admin2);
 	_ad.push_back(admin3);
 	_ad.push_back(admin4);
-}
+} 
+
 
 bool BusStation::logInForAdmin(int &serial)
 {
@@ -483,7 +510,9 @@ bool BusStation::logInForAdmin(int &serial)
 		password.clear();
 		system("cls");
 	}
+	return false;
 }
+
 
 void BusStation::Install()
 {
@@ -501,13 +530,16 @@ void BusStation::Install()
 		cout << "Lua chon cua ban la: ";
 		cin >> choice;
 		cin.ignore();
+
 		if (choice == 5)
 		{
 			system("pause");
 			system("cls");
 			break;
 		}
+
 		system("cls");
+
 		switch (choice)
 		{
 		case 1:
@@ -530,6 +562,7 @@ void BusStation::Install()
 
 			break;
 		}
+
 		case 2:
 		{
 			int Num;
@@ -551,6 +584,7 @@ void BusStation::Install()
 
 			break;
 		}
+
 		case 3:
 		{
 			int Num;
@@ -572,6 +606,7 @@ void BusStation::Install()
 
 			break;
 		}
+
 		case 4:
 		{
 			int Num;
@@ -597,21 +632,26 @@ void BusStation::Install()
 	}
 }
 
+
 void BusStation::Rev()
 {
 	int Bus_no;
+
 	cout << "CUSTOMER: " << endl;
 	cout << "Buses availabile: " << endl;
-top1:
+
 	for (int i = 0; i < _bus.size(); i++)
 	{
 		_bus[i]->Show();
 		cout << endl;
 	}
+
 	cout << endl;
+
 	cout << "Enter Bus No: ";
 	cin >> Bus_no;
 	cin.ignore();
+
 	for (int i = 0; i < _bus.size(); i++)
 	{
 		if (_bus[i]->Number == Bus_no)
@@ -633,51 +673,6 @@ top1:
 
 }
 
-//Admin
-void Admin::setUsername(string str)
-{
-	_username = str;
-}
-
-void Admin::setPassword(string str)
-{
-	_password = str;
-}
-
-string Admin::getUsername()
-{
-	return _username;
-}
-
-string Admin::getPassword()
-{
-	return _password;
-}
-
-void Admin::addHistory(History history)
-{
-	_history.push_back(history);
-}
-
-vector<History> Admin::getHistory()
-{
-	return _history;
-}
-
-void BusStation::addBed_car(Bed_Car a)
-{
-	_bus.push_back(new Bed_Car(a));
-}
-
-void BusStation::addVip(VIP b)
-{
-	_bus.push_back(new VIP(b));
-}
-
-void BusStation::addVipCar(SuperVip c)
-{
-	_bus.push_back(new SuperVip(c));
-}
 
 void BusStation::saveInfoIntoHistory(int serial) {
 	string name, telephone, feedback;
@@ -695,6 +690,7 @@ void BusStation::saveInfoIntoHistory(int serial) {
 	_ad[serial].addHistory(history);
 }
 
+
 void BusStation::readFeedback(int serial)
 {
 	vector<History> temp;
@@ -709,10 +705,11 @@ void BusStation::readFeedback(int serial)
 	return;
 }
 
+
 int BusStation::showMoney(int serial)
 {
 	int totalOfMoney = 0;
-	
+
 	vector<History> temp;
 	temp = _ad[serial].getHistory();
 
@@ -723,6 +720,7 @@ int BusStation::showMoney(int serial)
 	temp.clear();
 	return totalOfMoney;
 }
+
 
 int BusStation::showGoods(int serial)
 {
@@ -739,12 +737,70 @@ int BusStation::showGoods(int serial)
 	return totalOfGoods;
 }
 
-void OptionInstall()
-{
 
+void BusStation::addVip(VIP b)
+{
+	_bus.push_back(new VIP(b));
 }
 
-void OptionRev()
-{
 
+void BusStation::addVipCar(SuperVip c)
+{
+	_bus.push_back(new SuperVip(c));
 }
+
+
+void BusStation::addBed_car(Bed_Car a)
+{
+	_bus.push_back(new Bed_Car(a));
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Admin
+void Admin::setUsername(string str)
+{
+	_username = str;
+}
+
+
+void Admin::setPassword(string str)
+{
+	_password = str;
+}
+
+
+string Admin::getUsername()
+{
+	return _username;
+}
+
+
+string Admin::getPassword()
+{
+	return _password;
+}
+
+
+void Admin::addHistory(const History &history)
+{
+	_history.push_back(history);
+}
+
+
+vector<History> Admin::getHistory()
+{
+	return _history;
+}
+
+//void OptionInstall()
+//{
+//
+//}
+//
+//void OptionRev()
+//{
+//
+//}
